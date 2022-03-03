@@ -1,0 +1,9 @@
+{
+    "COMMANDS": {
+        "shutdown": "SYS_ACTION_SHUTDOWN",
+        "shut down": "SYS_ACTION_SHUTDOWN",
+        "exit": "SYS_ACTION_SHUTDOWN",
+        "cheese": "DEV_TEMP_CHEESE",
+        "what's the weather": "DTA_WEATHER_NOW"
+    }
+}
