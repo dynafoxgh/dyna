@@ -1,19 +1,22 @@
-from js2py import require
+from datetime import datetime
 from vosk import Model, KaldiRecognizer
-import pyttsx3
+# from neuralintents import GenericAssistant
+from dotenv import load_dotenv
+import intents as vulpes
+import pyttsx3 as tts
 import sys
 import pyaudio
 import json
-from dotenv import load_dotenv
-from handlers import mainHandler
 
 with open(".\\lib\\translations\\NL-NL.json") as f:
     lang = json.load(f)
 
 load_dotenv()
 
+vulpes.init(".\\lib\\intents-en.json", ".\\lib\\mappings.json")
+
 model = Model('.\\lib\\lang\\en')
-engine = pyttsx3.init()
+engine = tts.init()
 engine.setProperty("voice", engine.getProperty("voices")[1].id)
 engine.setProperty("rate", 172)
 recognizer = KaldiRecognizer(model, 16000)
@@ -26,27 +29,36 @@ stream = capture.open(format=pyaudio.paInt16,
                       frames_per_buffer=8192)
 stream.start_stream()
 
-print("Ready and listening!")
+
+def _say_(text):
+    engine.say(text)
+    engine.runAndWait()
 
 
-def analyse_audio(audio):
-    # engine.say(audio)
-    # engine.runAndWait()
-    mainHandler.analyse(audio)
-    # if "milo" not in command:
-    #     return
-
-    # mainHandler.execute(lang["COMMANDS"][command])
-    # print(lang["COMMANDS"][command])
-    # if command == "shutdown" or command == "shut down":
-    #     sys.exit()
+def run(exc, args):
+    if "SYS_EXIT" == exc:
+        SYS_EXIT()
+    elif "TIME" == exc:
+        TIME(args)
 
 
-while True:
-    data = stream.read(4096, exception_on_overflow=False)
-    if recognizer.AcceptWaveform(data):
-        # print(recognizer.Result())
-        # if "python" in json.loads(recognizer.Result())["text"]:
-        analyse_audio(recognizer.Result())
+def TIME(args):
+    print("The time is " + datetime.now().strftime("%I %M %p"))
+    _say_("The time is " + datetime.now().strftime("%I %M %p"))
 
-print(model)
+
+def SYS_EXIT():
+    _say_("Exiting Now")
+    sys.exit(0)
+
+
+def main():
+    print("Ready and listening!")
+    while True:
+        data = stream.read(4096, exception_on_overflow=False)
+        if recognizer.AcceptWaveform(data):
+            exc, args = vulpes.request(recognizer.Result())
+            run(exc, args)
+
+
+main()

@@ -1,0 +1,36 @@
+{
+    "intents": [
+        {
+            "exc": "RSP_GREETING",
+            "patterns": [
+                "hey",
+                "hello"
+            ],
+            "responses": [
+                "Hello Sir!"
+            ]
+        },
+        {
+            "exc": "SYS_EXIT",
+            "patterns": [
+                "quit",
+                "shut down",
+                "exit"
+            ],
+            "responses": [
+                ""
+            ]
+        },
+        {
+            "exc": "TIME",
+            "patterns": [
+                "what's the time",
+                "what is the current time",
+                "what time is it"
+            ],
+            "responses": [
+                ""
+            ]
+        }
+    ]
+}
