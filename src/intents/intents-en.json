@@ -1,4 +1,8 @@
 {
+    "calls": [
+        "hey milo",
+        "milo"
+    ],
     "intents": [
         {
             "exc": "RSP_GREETING",
