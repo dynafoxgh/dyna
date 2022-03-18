@@ -9,4 +9,4 @@ Dyna is currently a small project that started as an assistent for desktops but 
 
 ## Documentation
 
-Documentation can be found [here](docs\TOC.md)
+Documentation can be found [here](docs/TOC.md)
