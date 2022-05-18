@@ -1,0 +1,25 @@
+I-0000-00:
+    O-0000-00
+
+I-0000-01 && I-0000-02
+    O-0000-01
+
+I-0000-01 || I-0000-02:
+    O-0000-01
+    CMD: C-0000-00
+
+O-0001-00:
+    I-0001-00 && I-0001-01 && !I-0001-02 
+
+function blinds {
+    
+}
+
+
+bathroom1 && movement(bathroom, 300) {
+    lights.on(bathroom)
+} else (
+    lights.off(bathroom)
+)
+
+

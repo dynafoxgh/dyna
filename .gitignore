@@ -1,6 +1,5 @@
 .env
 __pycache__
-__local__
 .tmp
 
 /node_modules
