@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dyna • Dev Tool</title>
+</head>
+
+<body>
+
+    <input type="text" id="KEY_ID">
+    <button type="button" id="button">SEND</button>
+
+    <script>
+        // const button = document.getElementById('button');
+
+        // button.addEventListener('click', async _ => {
+        //     try {
+        //         const response = await fetch('http://127.0.0.1:5500', {
+        //             method: 'post',
+        //             body: {
+        //                 content: "test"
+        //             }
+        //         });
+        //         console.log('Completed!', response);
+        //     } catch (err) {
+        //         console.error(`Error: ${err}`);
+        //     }
+        // });
+
+
+        const button = document.getElementById('button');
+        button.addEventListener('click', async event => {
+            const data = { "test": "test" };
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                },
+                body: JSON.stringify(data)
+            };
+            const response = await fetch('http://localhost:3000/api', options);
+            const json = await response.json();
+            console.log(json);
+        });
+
+    </script>
+
+
+</body>
+
+</html>
