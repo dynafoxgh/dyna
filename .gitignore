@@ -3,3 +3,7 @@ __pycache__
 .tmp
 
 /node_modules
+/build
+/backup
+/__local__
+install.sh
