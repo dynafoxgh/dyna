@@ -1,9 +1,0 @@
-[users]
-[users.root]
-user=root
-md5="8b68e0163f1d3926a006f512f175ade6"
-groups= root,test
-
-[system]
-version = "0.0.0a"
-mapFile = "./map.dys"

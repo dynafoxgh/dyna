@@ -1,17 +1,19 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-const fs = require('fs');
+
 const ini = require('ini');
+const fs = require('fs');
+
+const dys = require('./modules/dys');
+
+const config = ini.parse(fs.readFileSync('./conf.dyc', 'utf-8'));
 
 app.use(bodyParser.json());
 
-const PORT = 3000;
-const config = ini.parse(fs.readFileSync('./configuration.dys', 'utf-8'));
+app.listen(config.network.port, () => console.log(`Listening at http://localhost:${config.network.port}`));
 
-app.listen(PORT, () => console.log(`Listening at http://localhost:${PORT}`));
-
-console.log(config);
+dys.init();
 
 app.get('/api/', (req, res) => {
 	res.status(200).send({
@@ -19,36 +21,16 @@ app.get('/api/', (req, res) => {
 	});
 });
 
-// app.get('/redirect/:id', (req, res) => {
-// 	const { id } = req.params;
+app.put('/api/:system', (req, res) => {
+	// var ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
 
-// 	if (id == 'test') {
-// 		res.redirect(301, 'https://google.com');
-// 	}
-// });
-//window.location.replace(...)
+	console.log(req.params);
 
-app.post('/api/:version/:userHash', (req, res) => {
-	const { version, userHash } = req.params;
-	const data = req.body;
+	if (req.params.system == 'internal') dys.internalRequest(req.body, req.params, req.query);
 
-	//I0000-00
-
-	console.log(data);
+	if (req.params.system == 'v0') dys.handleRequest(req.body, req.params, req.query);
 
 	res.send({
-		version,
-		userHash,
+		status: 'OK',
 	});
 });
-
-/*
-dyna
-|
-|\ .server
-\   configuration.dys
-    map.dys
-
-
-
-*/
