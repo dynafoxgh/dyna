@@ -1,11 +1,15 @@
 .env
-__pycache__
-.tmp
 
-/node_modules
-/build
-/backup
+.tmp
+.vscode
+.pio
+
 /__local__
+/node_modules
+build/
+/backup
 install.sh
 /src/_storage
 /src/logs
+src/config
+src/conf.dyc
