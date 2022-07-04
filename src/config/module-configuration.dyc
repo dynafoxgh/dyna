@@ -1,0 +1,3 @@
+[conf]
+I_0000_00="moduleType: switch; ip: 192.168.0.1; switchType: mono; isHoldable: false; target: O_0000_00"
+O_0000_00="moduleType: light; ip: 192.168.0.2; isDimmable: false; IOboard: 192.168.0.2; IOpin: 1"
