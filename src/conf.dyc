@@ -1,11 +1,15 @@
 [files]
 map="./config/map.dys"
+scripts="/config/scripts.dys"
+
+; [users]
+; [users.root]
+; user=root
+; md5="8b68e0163f1d3926a006f512f175ade6"
+; groups= root,dev
 
 [users]
-[users.root]
-user=root
-md5="8b68e0163f1d3926a006f512f175ade6"
-groups= root,dev
+users="54b53072540eeeb8f8e9343e71f28176"
 
 [system]
 version = "0.0.0a"

@@ -7,3 +7,5 @@ __pycache__
 /backup
 /__local__
 install.sh
+/src/_storage
+/src/logs

@@ -13,19 +13,22 @@ app.use(bodyParser.json());
 
 app.listen(config.network.port, () => console.log(`Listening at http://localhost:${config.network.port}`));
 
+dys.init();
+
 app.get('/api/', (req, res) => {
 	res.status(200).send({
 		status: 'OK',
 	});
 });
 
-app.post('/api/:version/:userHash', (req, res) => {
-	dys.handleRequest(req);
+app.put('/api/:system', (req, res) => {
 	// var ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
-	// const { version, userHash } = req.params;
-	// const data = req.body;
 
-	// console.log(ip);
+	console.log(req.params);
+
+	if (req.params.system == 'internal') dys.internalRequest(req.body, req.params, req.query);
+
+	if (req.params.system == 'v0') dys.handleRequest(req.body, req.params, req.query);
 
 	res.send({
 		status: 'OK',
