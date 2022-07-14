@@ -22,15 +22,23 @@ app.get('/api/', (req, res) => {
 });
 
 app.put('/api/:system', (req, res) => {
-	// var ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
-
-	console.log(req.params);
-
 	if (req.params.system == 'internal') dys.internalRequest(req.body, req.params, req.query);
-
-	if (req.params.system == 'v0') dys.handleRequest(req.body, req.params, req.query);
-
+	// if (req.params.system == 'v0') dys.handleRequest(req.body, req.params, req.query);
 	res.send({
 		status: 'OK',
 	});
+});
+
+app.put('/api/data/:type', (req, res) => {
+	if (req.params.type == 'io') dys.updateIO(req.body, req.params, req.query);
+	// if (req.params.system == 'v0') dys.handleRequest(req.body, req.params, req.query);
+	res.send({
+		status: 'OK',
+	});
+});
+
+app.get('/api/data/:system', (req, res) => {
+	console.log(req.params);
+
+	// if (req.params.system == 'get-data') dys.dataRequest(req.body, req.params, req.query, res);
 });

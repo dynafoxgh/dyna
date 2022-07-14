@@ -4,8 +4,10 @@
 
 Dyna is currently a small project that started as an assistent for desktops but moved over to home automation.
 
--   **Configurable:** Dyna has lots of settings that can be changed from other devices.
--   **Web Interface:** A very user friendly interface to change settings.
+## Planned features
+
+-   **Configurability:** All settings and features are customizable in the configuration files and via a web-interface.
+-   **Web Interface:** This will come in one of the later stages of Dyna as we want to make things work first.
 
 ---
 
