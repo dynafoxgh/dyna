@@ -6,7 +6,7 @@ const ini = require('ini');
 const axios = require('axios');
 
 // configuration files
-const systemConf = ini.parse(fs.readFileSync('conf.dyc', 'utf-8'));
+const systemConf = ini.parse(fs.readFileSync('./conf.dyc', 'utf-8'));
 // const moduleConfFile = ini.parse(fs.readFileSync('./config/module-configuration.dyc', 'utf-8'));
 const modules = require('../config/module-configuration.json');
 
@@ -14,8 +14,7 @@ const modules = require('../config/module-configuration.json');
 const modProp = require('../libs/moduleProperties.json');
 
 // system dependecies
-const userVal = require('./user-validation');
-const scripts = require(`..${systemConf.files.scripts}`);
+// const scripts = require(`..${systemConf.files.scripts}`);
 const load = require('./load');
 const dbh = require('./databaseHandler');
 
@@ -23,6 +22,7 @@ const dbh = require('./databaseHandler');
 function init() {
 	// const modules = load.generateModuleConfiguration(moduleConfFile);
 	// load.verifyModuleConfiguration(modules);
+
 	return modules;
 }
 
@@ -33,6 +33,7 @@ module.exports = {
 		// } catch (error) {
 		// 	console.log(error);
 		// }
+		load.sendModuleConfiguration(modules);
 	},
 
 	internalRequest(body, params, query) {
@@ -40,7 +41,7 @@ module.exports = {
 		// console.log(query);
 		// console.log(body);
 
-		if (modules[query.uid].nodes[body.node].switchType == 'mono') {
+		if (modules[query.uid].nodes[body.node].switchType == 'toggle') {
 			if (dbh.getState(modules[query.uid].nodes[body.node].target).state == '1') {
 				state = '0';
 			} else {

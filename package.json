@@ -2,7 +2,7 @@
     "name": "dyna",
     "version": "1.0.0",
     "description": "> We are currently working on the electronic part for Dyna. There will not be a lot of activity on the Github page since its mostly physical. It will all be documented when everything is done.",
-    "main": "src/main.js",
+    "main": "src/index.js",
     "directories": {
         "doc": "docs"
     },
