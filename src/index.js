@@ -7,6 +7,8 @@ const fs = require('fs');
 
 const dys = require('./modules/dys');
 
+const localRequest = require('./handlers/localRequest');
+
 const config = ini.parse(fs.readFileSync('./conf.dyc', 'utf-8'));
 
 app.use(bodyParser.json());
@@ -22,7 +24,7 @@ app.get('/api/', (req, res) => {
 });
 
 app.put('/api/:system', (req, res) => {
-	if (req.params.system == 'internal') dys.internalRequest(req.body, req.params, req.query);
+	if (req.params.system == 'local') localRequest.run(req.body, req.params, req.query);
 	// if (req.params.system == 'v0') dys.handleRequest(req.body, req.params, req.query);
 	res.send({
 		status: 'OK',

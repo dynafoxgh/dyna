@@ -1,3 +1,10 @@
+// dependencies
+const fs = require('fs');
+const ini = require('ini');
+const axios = require('axios');
+
+const systemConf = ini.parse(fs.readFileSync('./conf.dyc', 'utf-8'));
+
 module.exports = {
 	generateModuleConfiguration(modConfFile) {
 		function convertToJSON(object) {
@@ -26,5 +33,13 @@ module.exports = {
 		console.log(modConf);
 
 		return modConf;
+	},
+	sendModuleConfiguration(modules) {
+		Object.keys(modules).forEach(element => {
+			axios
+				.post(`http://${modules[element].ip}/boot?ip=${systemConf.network.ip}&uid=${element}`)
+				.then(result => resolve(result))
+				.catch(err => console.log('error'));
+		});
 	},
 };

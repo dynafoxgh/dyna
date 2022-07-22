@@ -3,11 +3,9 @@
 #include <WebServer.h>
 #include <HTTPClient.h>
 #include <WiFiManager.h>
-#include <EEPROM.h>
-// SYSTEM CONSTANTS (will be removed and moved to internal flash memory)
-// const String SERVER_ADDRESS = "192.168.0.249:3000";
-String UID = "";
-String SERVER_ADDRESS = "";
+
+String UID = "1.0.0";
+String SERVER_ADDRESS = "192.168.0.249:3000";
 
 // MODULE CONSTANTS
 #define REG_COUNT 1
@@ -18,15 +16,16 @@ String SERVER_ADDRESS = "";
 #define EEPROM_SIZE 512
 #define WMOD_PIN 0
 
-#define JSON_CONFIG_FILE "/config.json"
+#define CONFIG_FILE "/config.txt"
 
 // VARIABLES
 bool REGISTERS[REG_PIN_COUNT];
-bool saveConfig = false;
+bool saveConfig = true;
 
 // OTHER
 WebServer server(80);
 HTTPClient http;
+WiFiManager wm;
 
 // FUNCTIONS
 void clearRegisters()
@@ -88,24 +87,33 @@ void control()
 // MAIN
 void setup()
 {
+
+    bool forceConfig = false;
+
     // Init Serial USB
     Serial.begin(912600);
     Serial.println(F("Initializing Module"));
 
-    WiFiManager wm;
+    // WiFiManagerParameter server_addr("server_addr", "Server Address", SERVER_ADDRESS, 64);
+    // WiFiManagerParameter uniqueid("uniqueid", "UID", UID, 16);
 
-    bool res;
-    res = wm.autoConnect("Dyna Module");
+    // wm.addParameter(&server_addr);
+    // wm.addParameter(&uniqueid);
 
-    while (WiFi.status() != WL_CONNECTED)
-    {
-        Serial.print(".");
-        delay(500);
-    }
-    Serial.print("");
+    wm.autoConnect("DYNA MODULE");
 
-    Serial.print("Connected to the WiFi network with IP: ");
+    Serial.println("");
+    Serial.println("Connected to WiFi");
+    Serial.print("IP address: ");
     Serial.println(WiFi.localIP());
+
+    // strncpy(SERVER_ADDRESS, server_addr.getValue(), sizeof(SERVER_ADDRESS));
+    // Serial.print("Server Address: ");
+    // Serial.println(SERVER_ADDRESS);
+
+    // strncpy(UID, uniqueid.getValue(), sizeof(UID));
+    // Serial.print("UID: ");
+    // Serial.println(UID);
 
     // Init register
     pinMode(SER_PIN, OUTPUT);
@@ -129,7 +137,6 @@ void loop()
     if (digitalRead(WMOD_PIN) == LOW)
     {
 
-        WiFiManager wm;
         wm.resetSettings();
         wm.setConfigPortalTimeout(120);
 
